@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Vue Samplt</title>
+    </head>
+    <body>
+        <div id="app">   <!-- 인스턴스 생성 -->
+            {{ message }}
+        </div>             <!-- 인스턴스 유효 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            new Vue({ //뷰 인스턴스 - 생성자
+                el: "#app", // 그려질 지점
+                data: {
+                    message: 'hello vue.js!'
+                }
+            })
+        </script>
+    </body>
+</html>
