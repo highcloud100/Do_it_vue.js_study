@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div id = "app2">
+        <my-component1></my-component1>
+        <my-component2></my-component2>
+    </div> -->
+    <p></p>
+    <div id = "app"> <!-- 상위 컴포넌트 root (인스턴스로 자동 등록)-->
+        <my-component1></my-component1> <!-- 하위 컴포넌트 들-->
+        <my-component2></my-component2>
+        <child-component v-bind:propsdata="message" v-on:show-log="pT"></child-component>
+        <!-- 상위 컴포넌트에서 메시지를 하위컴포넌트에 전달-->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 이벤트 발생과 수신
+        //this.&emit('이벤트명'); 이벤트 발생 <- 주로 하위 컴포넌트의 매서드에서 호출
+        //<child-component v-on:이벤트명="상위 컴포넌트의 매서드명"></> 이벤트 수신
+
+        // 이벤트 버스 형식
+        // var eventBus = new Vue(); 추가 인스턴스 생성 -> 얘를 이용함
+
+        // methods:{                이벤트를 보내는 컴포넌트
+        //     매서드명: function(){
+        //         eventBus.$emit('이벤트명', 데이터);
+        //     }
+        // }
+        
+        // methods: {               이벤트를 받는 컴포넌트
+        //     created: function(){
+        //         eventBus.$on('이벤트명',function(데이터))
+        //     }
+        // }
+
+        var cmp1 = {
+            template: '<div>first local comp : {{cmp1Data}}</div>',
+            data: function(){
+                return {
+                    cmp1Data : 100
+                }
+            }
+        };
+        var cmp2 = {
+            template: '<div>second local comp : {{cmp2Data}}</div>',
+            data: function(){
+                return {
+                    cmp2Data : cmp1.data.cmp1Data
+                }
+            }
+        };
+        
+        Vue.component('child-component',{
+            props:['propsdata'],
+            template: '<button v-on:click="showLog">show</button>',
+            methods:{
+                showLog: function(){
+                    this.$emit('show-log')
+                }
+            }
+        });
+
+        new Vue({
+            el:'#app',
+            data:{
+                message: 'hello vue! passed from parent'
+            },
+            components:{
+                'my-component1' : cmp1,
+                'my-component2' : cmp2
+            },
+            methods:{
+                pT: function(){
+                    console.log("received event");
+                }
+            }
+        });
+
+        // new Vue({
+        //     el:'#app2',
+        //     components:{
+        //         'my-component1' : cmp1,
+        //         'my-component2' : cmp2
+        //     }
+        // })
+
+    </script>
+   
+</body>
+</html>
