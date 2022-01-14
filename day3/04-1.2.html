@@ -1,0 +1,51 @@
+<!--
+    네스티드 라우터 -> 라우터로 페이지를 이동할 때 최소 2개 이상의 컴포넌트를 화면에 나타낼 수 있다.
+        - 상위 컴포넌트 유지, 하위 컴포넌트 바꾸기
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue nested router</title>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script>
+        var User = {
+            template: `<div>User Component <router-view></router-view></div>`
+        };
+        var UserPost = {template: '<p>User post component</p>'};
+        var UserProfile = {template: '<p>user profile component</p>'}
+        var routes = [
+            {
+                path: '/user',
+                component: User,
+                children: [
+                    {
+                        path: 'posts',
+                        component: UserPost
+                    },
+                    {
+                        path: 'profile',
+                        component: UserProfile
+                    },
+                ]
+            }
+        ];
+
+        var router = new VueRouter({
+            routes
+        });
+
+        var app = new Vue({
+            router
+        }).$mount('#app');
+    </script>
+</body>
+</html>

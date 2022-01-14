@@ -1,0 +1,46 @@
+<!--
+    ajax
+    뷰 리소스
+    axios <- 미래가 좋다
+    axios.get('url주소').then().catch(); http get요청 // 정상으로 받으면 then, 못받으면 catch
+    axios.post('url주소').then().catch(); http post요청
+    axios({
+        method: 'get',
+        url: 'url 주소', // http 요청에 대한 옵션 속성 정의
+    })
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="getData">프레임 워크 목록 가져오기</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> <!-- axios-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script> 리소스-->
+    <script>
+        new Vue({
+            el: '#app',
+            methods:{
+                getData: function(){
+                    // this.$http.get(`https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json`)
+                    // .then(function(responce){
+                    //     console.log(responce);
+                    //     console.log(JSON.parse(responce.data));
+                    // });
+                   axios.get(`https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json`)
+                    .then(function(responce){
+                        console.log(responce);
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html>
