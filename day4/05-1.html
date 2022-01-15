@@ -1,0 +1,64 @@
+<!-- 
+    뷰 템플릿 - 마크업 속성과 뷰 인스턴스에서 정의한 데이터 로직을 연결해 html로 변환해주는 속성
+        방법 1 : es5에서 뷰인스턴스의 template 속성을 이용
+        방법 2 : 싱글 파일 컴포넌트 체계
+    
+    템플릿에서 사용하는 속성, 문법
+        - 데이터 바인딩
+        - 자바스크립트 표현식
+        - 디렉티브
+        - 이벤트 처리
+        - 고급 템플릿 기법 
+            - computed 
+                - 캐싱 : 동일 연산시 저장하고 있다 불러옴
+                - data 속성 변화에 따라 자동으로 다시 연산
+                - method는 눌렀을 때 실행, 캐싱하지 않음 - 수동적 갱신
+                - computed는 속성이 바뀌면 자동으로 실행하고 캐싱함 - 자동으로 갱신
+-->
+<html>
+    <head>
+        <title>vue template  directives</title>
+    </head>
+    <body>
+        <div id="app">
+            <a v-if="flag">두잇 vue.js</a>
+            <ul>
+                <li v-for="system in systems">{{system}}</li>
+            </ul>
+            <p v-show="flag">두잇 vue.js</p>
+            <h5 v-bind:id="uid">뷰입문서</h5>
+            <button v-on:click="popupAlert">경고 창 버튼</button>
+            <!-- <div>{{reverseMessage}}</div> -->
+            <input v-model="message"> <!--양방향 데이터 바인딩-->
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+            new Vue({
+                el: '#app',
+                data:{
+                    flag: true,
+                    systems: ['android','ios','window'],
+                    uid : 10,
+                    char : 'hello vue.js',
+                    message: 'hi'
+                },
+                methods: {
+                    popupAlert: function(event){
+                        console.log(event);
+                        return alert('경고 창 표시');
+                    }
+                },
+                computed:{
+                    reverseMessage: function(){
+                        return this.char.split('').reverse().join('');
+                    }
+                },
+                watch:{
+                    message: function(data){
+                        console.log("msg ", data);
+                    }
+                }
+            });
+    </script>
+</html>
