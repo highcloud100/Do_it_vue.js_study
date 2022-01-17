@@ -10,7 +10,7 @@
 <script>
 import TodoFooterVue from './components/TodoFooter.vue'
 import TodoHeaderVue from './components/TodoHeader.vue'
-import TodoInputVue from './components/Todoinput.vue'
+import TodoInputVue from './components/TodoInput.vue'
 import TodoListVue from './components/TodoList.vue'
 
 export default {
